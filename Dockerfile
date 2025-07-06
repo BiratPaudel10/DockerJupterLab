@@ -1,19 +1,13 @@
-# Use a base image with Python
-FROM python:3.8
-
-Set the working directory
+FROM python:3.8-slim
 
 WORKDIR /app
 
-Install JupyterLab
+RUN pip install --no-cache-dir jupyterlab
 
-RUN pip install jupyterlab
-
-Expose port 8080
+ENV PORT=8080
 
 EXPOSE 8080
 
-Start JupyterLab on port 8080
-
-CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8080", "--no-browser", "--allow-root"]
+# Shell form to expand $PORT
+CMD jupyter lab --ip=0.0.0.0 --port=${PORT} --no-browser --allow-root
 
